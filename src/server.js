@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
 const { response } = require('express');
 const app = express();
 const fs = require('fs');
+app.use(express.static(path.join(__dirname, '../public')));
 
 function subtotal(i){
     if(Array.isArray(i)){
