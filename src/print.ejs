@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório</title>
+    <style>
+        table{
+            width: 100%;
+        }
+
+        th{
+            text-align: center;
+            padding: 5px 0px 5px 0px;
+        }
+        td{
+            border: 1px solid black;
+            text-align: center;
+
+        }
+        tr{
+            border: 1px solid black;
+
+        }
+    </style>
+</head>
+<body class="">
+    <div class="">
+        <h1 class="" style="text-align: center;">Mendes Assoalhos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td colspan="5">Av Ascaz Natal, 161</td>
+                    <td>Pedido</td>
+                </tr>
+                <tr>
+                    <td colspan="5">CNPJ: 26.722.543/0001-06</td>
+                    <td rowspan="2"><%= budget['Pedido'] %></td>
+                </tr>
+                <tr>
+                    <td colspan="5">Tel e WhatsApp: 11 93078-1538</td>
+                </tr>
+                <tr>
+                    <th colspan="6">Dados do cliente</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Consultor:</td>
+                    <td colspan="5"><%= budget['Consultor'] %></td>
+                </tr>          
+                <tr>
+                    <td>Cliente:</td>
+                    <td colspan="4"><%= budget['Cliente'] %></td>
+                    <td colspan="1">Data: <%= budget['Data'] %></td>
+                </tr>          
+                <tr>
+                    <td>Logradouro:</td>
+                    <td colspan="4"><%= budget['Logradouro'] %></td>
+                    <td colspan="1">Número: <%= budget['Número'] %></td>
+                </tr>          
+                <tr>
+                    <td>Bairro:</td>
+                    <td colspan="4"><%= budget['Bairro'] %></td>
+                    <td colspan="1">Cidade: <%= budget['Cidade'] %></td>
+                </tr>          
+                <tr>
+                    <td>Complemento:</td>
+                    <td colspan="5"><%= budget['Complemento'] %></td>
+                </tr>          
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+            <thead>
+                <tr>
+                    <th>Item Nº</th>
+                    <th>Qtd</th>
+                    <th>Und</th>
+                    <th>Descrição</th>
+                    <th>Valor Unitáiro</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(budget['id']) {for ( i in budget['id']){ %>
+                <tr>
+                    <% if (budget['id'].constructor === Array){ %>
+                    <td><%= budget['id'][i] %></td>
+                    <td><%= budget['Quantidade'][i] %></td>
+                    <td><%= budget['Unidade'][i] %></td>
+                    <td><%= budget['Descricao'][i] %></td>
+                    <td><%= budget['ValorUnitario'][i] %></td>
+                    <td><%= budget['Total'][i] %></td>
+                <% } else {  %>
+                    <td><%= budget['id'] %></td>
+                    <td><%= budget['Quantidade'] %></td>
+                    <td><%= budget['Unidade'] %></td>
+                    <td><%= budget['Descricao'] %></td>
+                    <td><%= budget['ValorUnitario'] %></td>
+                    <td><%= budget['Total'] %></td>
+
+                <% } %>
+                </tr>
+                <% }} else { %>
+                <tr>
+                    <td colspan="6">Nenhum Item foi adicionado a esse orçamento</td>
+                </tr>
+
+                <% } %>
+                <tr>
+                    <td colspan="4" style="border: none;"></td>
+                    <td colspan="2">Sub Total: <%= budget['Subtotal'] %></td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+                <% if(budget['observacao']){ %>
+                    <tr>
+                        <th colspan="6">Observações</th>
+                    </tr>
+                    <% if(budget['observacao'].constructor === Array){ for (i in budget['observacao']){ %>
+                        <tr>
+                            <td colspan="6"><%= budget['observacao'][i] %></td>
+                        </tr>
+                    <% }} else { %>
+                        <tr>
+                            <td colspan="6"><%= budget['observacao']%></td>
+                        </tr>
+
+                    <% } %>
+                <% } %>
+
+                <tr>
+                    <td colspan="6">Excelência é nossa base!</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+</body>
+</html>

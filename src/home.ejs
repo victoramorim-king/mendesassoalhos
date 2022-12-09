@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mendes Assoalhos</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            padding-bottom: 100px;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Style the links inside the navigation bar */
+        .navbar a,
+        .navbar button {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        /* Change the color of links on hover */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Add a color to the active/current link */
+        .navbar a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .form {
+            margin: 50px 0px 20px 0px;
+            padding: 0px 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .listItems div {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .observationList  {
+            margin-bottom: 50px;
+        }
+
+        .observationList div {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .main{
+            display: flex;
+            flex-direction: column;
+            padding: 0px auto;
+            margin: 0px auto;
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .btnAdd{
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 18px;
+            border: 0;
+            margin: 10px 0px 20px 0px;
+            width: 150px;
+            height: 20px;
+            align-self: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .btnAdd:hover{
+            background-color: #054fbe;
+        }
+        
+        .btnAdd:active{
+            background-color: #053783;
+        }
+
+        .btnDelete{
+            background-color: #dc3545;
+            color: white;
+            border-radius: 18px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 0;
+            width: 150px;
+            height: 20px;
+            align-self: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .btnDelete:hover{
+            background-color: #dc3545;
+        }
+        
+        .btnDelete:active{
+            background-color: #800d19;
+        }
+
+        .title{
+            align-self: center;
+        }
+
+        .obsTextArea{
+            width: 100%;
+        }
+    
+        .obsContainer{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var itemNumber = document.getElementById('itemNumber')
+            itemNumber.value = listItems.childElementCount + 1;
+        }, false);
+    </script>
+</head>
+
+<body onclick="blockPDFGeneration(document.querySelector('#listItems').childElementCount)">
+    <main class="main">
+        <form action='/pdf' id='form1' method='get'>
+            <div class="form">
+                <h2 class="title">Cabeçalho</h2>
+                <label for="Consultor">Consultor</label>
+                <input type='text' name="Consultor" required="true"></input>
+                <label for="Cidade">Cidade</label>
+                <input type='text' name="Cidade" required="true"></input>
+                <label for="Cliente">Cliente</label>
+                <input type='text' name="Cliente" required="true"></input>
+                <label for="Logradouro">Logradouro</label>
+                <input type='text' name="Logradouro" required="true"></input>
+                <label for="Número">Número</label>
+                <input type='text' name="Número" required="true"></input>
+                <label for="Bairro">Bairro</label>
+                <input type='text' name="Bairro" required="true"></input>
+                <label for="Complemento">Complemento</label>
+                <input type='text' name="Complemento" required="true"></input>
+                <label for="Data">Data</label>
+                <input type='date' name="Data" required="true"></input>
+            </div>
+
+            <div id="itemForm" class="form">
+                <h2 class="title">Itens</h2>
+                <label>Numero do Item</label>
+                <input type='Number' name="itemNumber" readonly="true" id="itemNumber"></input>
+                <label>Quantidade</label>
+                <input type='Number' id="quantidade" onchange="calculateTotal()"></input>
+                <label>Unidade</label>
+                <input type='text'></input>
+                <label>Descrição</label>
+                <input type='text'></input>
+                <label>Valor Unitário</label>
+                <input type='text' id="valorUnitario" onchange="calculateTotal()"></input>
+                <label>Total</label>
+                <input type='text' id="Total"  required="true"  readonly="true"></input>
+                <button type="button" class="btnAdd" onclick="addItem(), setItemNumbers()">Adicionar Item</button>
+            </div>
+            <div id="listItems" class="listItems" name="listItems">
+            </div>
+
+            <div class="form">
+                <h2 class="title">Observações</h2>
+                <input id="novaObservacao" type="text">
+                <button id='addObs' class="btnAdd" type="button" onclick="addObservation()">Adicionar Observação</button>
+            </div>
+
+            <div id='observationList'class='form'>
+            </div>
+
+        </form>
+
+    </main>
+        <div class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#news">News</a>
+            <button type='submit' id="submitBtn" disabled="true"  form='form1'>Gerar PDF</button>
+
+        </div>
+    <script>
+
+        const formatter = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            
+        });
+        
+        function addItem() {
+            
+            var listItems = document.getElementById('listItems')
+            const node = document.createElement("div");
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = 'Apagar Item';
+            deleteButton.setAttribute('type', 'button')
+            var formData = document.getElementById('itemForm').childNodes;
+            const nodeNumber = [5, 9, 13, 17, 21, 25]
+            const nodeAttributes = ['id', 'Quantidade', 'Unidade', 'Descricao', 'ValorUnitario', 'Total']
+            for (let i in nodeNumber) {
+                var textnode = formData[nodeNumber[i]]["value"];
+                var childNode = document.createElement('input')
+                childNode.setAttribute('name', nodeAttributes[i])
+                childNode.setAttribute('readonly', 'true')
+                if(nodeAttributes[i] == 'ValorUnitario') {
+                    childNode.value = formatter.format(parseFloat(textnode.replace(/\,/g, ".")))
+                    node.appendChild(childNode)
+                }else {
+                    childNode.value = textnode
+                    node.appendChild(childNode)
+                }
+            }
+            var itemNumber = document.getElementById("itemNumber")
+            node.appendChild(deleteButton)
+
+            deleteButton.setAttribute('onclick', `deleteItem(${listItems.childElementCount})`)
+            deleteButton.setAttribute('class', 'btnDelete')
+            node.setAttribute('id', `item_${listItems.childElementCount}`)
+            document.getElementById("listItems").appendChild(node);
+            itemNumber.value = listItems.childElementCount;
+
+        }
+
+        function addObservation() {
+            var obs = document.getElementById('novaObservacao').value
+            if (obs != ''){
+                const obsList = document.getElementById('observationList')
+                var newObsContainer = document.createElement('div')
+                newObsContainer.setAttribute('class', 'obsContainer')
+                var newObs = document.createElement('textarea')
+                newObs.setAttribute('class', 'obsTextArea')
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = 'Apagar Observação';
+                deleteButton.setAttribute('type', 'button')
+                newObs.setAttribute('name', 'observacao')
+                newObs.setAttribute('readonly', 'true')
+                newObs.value = obs
+                newObsContainer.appendChild(newObs)
+                newObsContainer.appendChild(deleteButton)
+                newObsContainer.setAttribute('id', `observacao_${obsList.childElementCount}`)
+                deleteButton.setAttribute('onclick', `deleteObservacao(${obsList.childElementCount})`)
+                deleteButton.setAttribute('class', 'btnDelete')
+                obsList.appendChild(newObsContainer)
+                document.getElementById('novaObservacao').value = '' 
+
+            } else {
+                alert('O campo de observação está vazio.')
+                document.getElementById('novaObservacao').focus
+            }
+        }
+
+        function calculateTotal() {
+            
+            const totalInput = document.getElementById('Total')
+            const quantidade = document.getElementById('quantidade')
+            const valorUnitario = document.getElementById('valorUnitario')
+            totalInput.value = formatter.format(parseFloat(quantidade.value) * parseFloat(valorUnitario.value.replace(/\,/g, ".") ))
+
+        }
+
+
+        function setItemNumbers() {
+            var listItems = document.getElementById('listItems').childNodes
+            for (i in listItems) {
+                if (i != 0) {
+                    console.log(listItems[i].childNodes)
+                    listItems[i].childNodes[0].value = i
+                }
+            }
+        }
+
+        function deleteItem(id) {
+            const item = document.getElementById(`item_${id}`)
+            item.remove()
+            setItemNumbers()
+        }
+
+        function deleteObservacao(id) {
+            const obs = document.getElementById(`observacao_${id}`)
+            obs.remove()
+        }
+
+        function blockPDFGeneration(i){
+            if (i == 0){
+                document.querySelector('#submitBtn').disabled = true
+            } else {
+                document.querySelector('#submitBtn').disabled = false 
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
