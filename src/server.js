@@ -6,18 +6,6 @@ const { response } = require('express');
 const app = express();
 const fs = require('fs');
 
-class Calculator {
-    sum(a, b) {
-        return a + b;
-    }
-    
-    sum2(a, b) {
-        return a + b + 1;
-    }
-}
-
-  module.exports = Calculator;
-
 function subtotal(i){
     if(Array.isArray(i)){
         var totais = i
