@@ -1,12 +1,9 @@
 const server = require('../server');
-const calc = new server();
 
+test("Test subtotal function with just one value", () =>{
+  expect(server("R$ 123,45")).toBe("R$ 123,45")
+})
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(calc.sum(1, 2)).toBe(3);
-});
-
-test('adds 1 + 2 to equal 4', () => {
-  expect(calc.sum2(1, 2)).toBe(4);
-});
-
+test("Test subtotal function with an array of values", () =>{
+  expect(server(["R$ 123,45", "R$ 678,90"])).toBe("R$ 802,35")
+})
