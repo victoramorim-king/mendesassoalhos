@@ -87,6 +87,17 @@ app.get("/pdf", (request, response) => {
     })
 });
 
+app.get("/budgetHeader", (request, response) => {
+    const filePath = path.join(__dirname, "budgetHeader.ejs")
+    ejs.renderFile(filePath, (err, html) => {
+        if (err) {
+            return response.send('Erro na leitura do arquivo')
+        }
+
+        return response.send(html)
+    })
+})
+
 app.get("/", (request, response) => {
     const filePath = path.join(__dirname, "home.ejs")
     ejs.renderFile(filePath, (err, html) => {
