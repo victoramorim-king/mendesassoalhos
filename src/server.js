@@ -7,14 +7,15 @@ const app = express();
 const fs = require('fs');
 app.use(express.static(path.join(__dirname, '../public')));
 
+const formatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+
+});
+
 function subtotal(i) {
     if (Array.isArray(i)) {
         var totais = i
-        const formatter = new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-
-        });
 
         for (var i = 0; i < totais.length; i++) {
             totais[i] = totais[i].replace('R$', '')
