@@ -5,13 +5,19 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 });
 
 function addItem() {
+    // Get items container
+    var listItems = document.querySelector('#listItems')
 
-    var listItems = document.getElementById('listItems')
+    // Create the new item elements
     const node = document.createElement("div");
     const deleteButton = document.createElement("button");
     deleteButton.textContent = 'Apagar Item';
     deleteButton.setAttribute('type', 'button')
+
+    // Get the item content in the form
     var formData = document.getElementById('itemForm').childNodes;
+
+    // Fill the new item with the form data
     const nodeNumber = [5, 9, 13, 17, 21, 25]
     const nodeAttributes = ['id', 'Quantidade', 'Unidade', 'Descricao', 'ValorUnitario', 'Total']
     for (let i in nodeNumber) {
@@ -27,11 +33,16 @@ function addItem() {
             node.appendChild(childNode)
         }
     }
+    
+    // Update the item number in item form
     var itemNumber = document.getElementById("itemNumber")
+    
+    // Add delete button
     node.appendChild(deleteButton)
-
     deleteButton.setAttribute('onclick', `deleteItem(${listItems.childElementCount})`)
     deleteButton.setAttribute('class', 'btnDelete')
+
+    // Display the new item in the user screen
     node.setAttribute('id', `item_${listItems.childElementCount}`)
     document.getElementById("listItems").appendChild(node);
     itemNumber.value = listItems.childElementCount;
