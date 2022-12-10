@@ -7,23 +7,23 @@ const app = express();
 const fs = require('fs');
 app.use(express.static(path.join(__dirname, '../public')));
 
-function subtotal(i){
-    if(Array.isArray(i)){
+function subtotal(i) {
+    if (Array.isArray(i)) {
         var totais = i
         const formatter = new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL',
-            
+
         });
 
-        for ( var i = 0; i < totais.length; i++ ){
+        for (var i = 0; i < totais.length; i++) {
             totais[i] = totais[i].replace('R$', '')
-            totais[i] = parseFloat(totais[i].replace('.', ''))
+            totais[i] = parseFloat(totais[i].replace(',', '.'))
         }
 
         var subtotal = formatter.format(totais.reduce((subtotal, totais) => subtotal + totais, 0));
 
-        for ( var i = 0; i < totais.length; i++ ){
+        for (var i = 0; i < totais.length; i++) {
             totais[i] = formatter.format(totais[i])
 
         }
@@ -34,23 +34,26 @@ function subtotal(i){
 }
 
 
+module.exports = subtotal;
+
+
 app.get("/pdf", (request, response) => {
 
     const budget = request.query
 
-    const config = fs.readFileSync('./src/app_config.json', 'utf-8')
+    const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
     const data = JSON.parse(config)
     budget['Pedido'] = data.orcamento_numero;
     data.orcamento_numero++
-    fs.writeFileSync('./src/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
+    fs.writeFileSync('../public/config/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
 
 
     budget.Data = budget.Data.split('-').reverse().join('/');
     budget.Subtotal = subtotal(budget['Total'])
     console.log(budget)
     const filePath = path.join(__dirname, "print.ejs")
-    ejs.renderFile(filePath, { budget }, async(err, html) => {
-        if(err){
+    ejs.renderFile(filePath, { budget }, async (err, html) => {
+        if (err) {
             return response.send('Erro na leitura do arquivo')
         }
 
@@ -80,7 +83,7 @@ app.get("/pdf", (request, response) => {
 app.get("/", (request, response) => {
     const filePath = path.join(__dirname, "home.ejs")
     ejs.renderFile(filePath, (err, html) => {
-        if(err){
+        if (err) {
             return response.send('Erro na leitura do arquivo')
         }
 
