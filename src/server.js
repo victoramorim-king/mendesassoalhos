@@ -13,21 +13,27 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 
 });
 
-function subtotal(i) {
-    if (Array.isArray(i)) {
-        var totais = i
+function clearTotais(totais){
+    for (var i = 0; i < totais.length; i++) {
+        totais[i] = totais[i].replace('R$', '')
+        console.log(totais[i])
+        totais[i] = parseFloat(totais[i].replace('.', ''))
+    }
+    return totais
+}
 
-        for (var i = 0; i < totais.length; i++) {
-            totais[i] = totais[i].replace('R$', '')
-            totais[i] = parseFloat(totais[i].replace(',', '.'))
-        }
-
-        var subtotal = formatter.format(totais.reduce((subtotal, totais) => subtotal + totais, 0));
-
+function formatTotais(totais){
         for (var i = 0; i < totais.length; i++) {
             totais[i] = formatter.format(totais[i])
-
         }
+        return totais
+}
+
+function subtotal(i) {
+    if (Array.isArray(i)) {
+        var totais = clearTotais(i) 
+        var subtotal = formatter.format(totais.reduce((subtotal, totais) => subtotal + totais, 0));
+        totais = formatTotais(totais)
         return subtotal;
     } else {
         return i
@@ -42,11 +48,12 @@ app.get("/pdf", (request, response) => {
 
     const budget = request.query
 
-    const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
-    const data = JSON.parse(config)
-    budget['Pedido'] = data.orcamento_numero;
-    data.orcamento_numero++
-    fs.writeFileSync('../public/config/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
+    //const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
+    //const data = JSON.parse(config)
+    //budget['Pedido'] = data.orcamento_numero;
+    budget['Pedido'] = 2034
+    //data.orcamento_numero++
+    //fs.writeFileSync('../public/config/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
 
 
     budget.Data = budget.Data.split('-').reverse().join('/');
