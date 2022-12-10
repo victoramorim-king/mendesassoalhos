@@ -112,6 +112,6 @@ function blockPDFGeneration(i) {
     if (i == 0) {
         document.querySelector('#submitBtn').disabled = true
     } else {
-        document.querySelector('#submitBtn').disabled = false
+        document.querySelector('#submitBtn').removeAttribute('disabled')
     }
 }

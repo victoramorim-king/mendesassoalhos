@@ -41,18 +41,18 @@
             <div id="itemForm" class="form">
                 <h2 class="title">Itens</h2>
                 <label>Numero do Item</label>
-                <input type='Number' name="itemNumber" readonly="true" id="itemNumber"></input>
+                <input type='Number' id="itemNumber" name="itemNumber" readonly="true" ></input>
                 <label>Quantidade</label>
                 <input type='Number' id="quantidade" onchange="calculateTotal()"></input>
                 <label>Unidade</label>
-                <input type='text'></input>
+                <input type='text' id="unidade"></input>
                 <label>Descrição</label>
-                <input type='text'></input>
+                <input type='text' id="descricao"></input>
                 <label>Valor Unitário</label>
                 <input type='text' id="valorUnitario" onchange="calculateTotal()"></input>
                 <label>Total</label>
                 <input type='text' id="Total"  required="true"  readonly="true"></input>
-                <button type="button" class="btnAdd" onclick="addItem(), setItemNumbers()">Adicionar Item</button>
+                <button type="button" id="btnAddItem" class="btnAdd" onclick="addItem(), setItemNumbers()">Adicionar Item</button>
             </div>
             <div id="listItems" class="listItems" name="listItems">
             </div>
