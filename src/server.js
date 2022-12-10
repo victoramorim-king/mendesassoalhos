@@ -71,7 +71,6 @@ app.get("/pdf", (request, response) => {
             waitUntil: 'networkidle2',
         });
         const pdf = await page.pdf({
-            path: 'report.pdf',
             format: 'a3',
             margin: {
                 top: "20px",
