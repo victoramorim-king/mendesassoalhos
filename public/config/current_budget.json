@@ -1,15 +1,39 @@
 {
   "header": {
     "Consultor": "Lucas Mendes",
-    "Cidade": "SP",
-    "Cliente": "SP",
-    "Logradouro": "Av Paulista",
-    "Número": "10234",
-    "Bairro": "Bela Vista",
-    "Complemento": "Apartamento 23A",
-    "Data": "2022-12-10"
-      
+    "Cidade": "São ",
+    "Cliente": "Victor ",
+    "Logradouro": "Rua Marcos Melega",
+    "Numero": "4512",
+    "Bairro": "Vila Natal",
+    "Complemento": "Casa 2",
+    "Data": "2022-12-11"
   },
-  "body": {},
+  "body": {
+    "id": [
+      "1",
+      "2"
+    ],
+    "Quantidade": [
+      "123",
+      "123"
+    ],
+    "Unidade": [
+      "123",
+      "123"
+    ],
+    "Descricao": [
+      "123",
+      "123"
+    ],
+    "ValorUnitario": [
+      "R$ 123,31",
+      "R$ 123,31"
+    ],
+    "Total": [
+      "R$ 15.167,13",
+      "R$ 15.167,13"
+    ]
+  },
   "footer": {}
 }
