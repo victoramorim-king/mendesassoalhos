@@ -5,5 +5,5 @@ test("Test subtotal function with just one value", () =>{
 })
 
 test("Test subtotal function with an array of values", () =>{
-  expect(server(["R$ 123,45", "R$ 678,90"])).toBe("R$ 802,35")
+  expect(server(["R$ 123,45", "R$ 678,90"])).toMatch(/802,35/)
 })
