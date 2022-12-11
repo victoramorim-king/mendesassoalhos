@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="css/budgetHeader.css">
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var itemNumber = document.getElementById('itemNumber')
-            itemNumber.value = listItems.childElementCount + 1;
+            fillFormStoredData(JSON.parse(window.localStorage.getItem('clientData')))
+        }, false);
+
+        document.addEventListener('change', function () {
+            storeData()
         }, false);
     </script>
 </head>
@@ -21,21 +24,22 @@
             <div class="form">
                 <h2 class="title">Mendes Assoalhos</h2>
                 <label for="Consultor">Consultor </label>
-                <input type='text' id="consultor" name="Consultor" required="true" value="<%= headerData['Consultor'] %>"></input>
+                <input type='text' id="consultor" name="Consultor" required="true"
+                    ></input>
                 <label for="Cidade">Cidade</label>
-                <input type='text' id="cidade" name="Cidade" required="true" value="<%= headerData['Cidade'] %>"></input>
+                <input type='text' id="cidade" name="Cidade" required="true"></input>
                 <label for="Cliente">Cliente</label>
-                <input type='text' id="cliente" name="Cliente" required="true" value="<%= headerData['Cliente'] %>"></input>
+                <input type='text' id="cliente" name="Cliente" required="true"></input>
                 <label for="Logradouro">Logradouro</label>
-                <input type='text' id="logradouro" name="Logradouro" required="true" value="<%= headerData['Logradouro'] %>"></input>
+                <input type='text' id="logradouro" name="Logradouro" required="true"></input>
                 <label for="Número">Número</label>
-                <input type='text' id="Numero" name="Numero" required="true" value="<%= headerData['Numero'] %>"></input>
+                <input type='text' id="numero" name="Numero" required="true"></input>
                 <label for="Bairro">Bairro</label>
-                <input type='text' id="bairro" name="Bairro" required="true" value="<%= headerData['Bairro'] %>"></input>
+                <input type='text' id="bairro" name="Bairro" required="true"></input>
                 <label for="Complemento">Complemento</label>
-                <input type='text' id="complemento" name="Complemento" required="true" value="<%= headerData['Complemento'] %>"></input>
+                <input type='text' id="complemento" name="Complemento" required="true"></input>
                 <label for="Data">Data</label>
-                <input type='date' id="data" name="Data" required="true" value="<%= headerData['Data'] %>"></input>
+                <input type='date' id="data" name="Data" required="true"></input>
             </div>
 
 
@@ -43,14 +47,15 @@
 
 
     </main>
-        <div class="navbar">
-            <a href="/" class="active">Home</a>
-            <a href="#news">Ecolher Cliente</a>
-            <button form="form1" type="submit">Próximo</button>
+    <div class="navbar">
+        <a href="/" class="active">Home</a>
+        <a href="#news">Ecolher Cliente</a>
+        <button form="form1" type="submit">Próximo</button>
 
-        </div>
+    </div>
+
     <script src="/js/budgetHeader.js">
-        
+
     </script>
 </body>
 

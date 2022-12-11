@@ -33,10 +33,10 @@ function addItem() {
             node.appendChild(childNode)
         }
     }
-    
+
     // Update the item number in item form
     var itemNumber = document.getElementById("itemNumber")
-    
+
     // Add delete button
     node.appendChild(deleteButton)
     deleteButton.setAttribute('onclick', `deleteItem(${listItems.childElementCount})`)
@@ -116,4 +116,29 @@ function blockPDFGeneration(i) {
     }
 }
 
+
+function storeData() {
+    const clientData = {
+        'consultor': document.querySelector('#consultor').value,
+        'cidade': document.querySelector('#cidade').value,
+        'cliente': document.querySelector('#cliente').value,
+        'logradouro': document.querySelector('#logradouro').value,
+        'numero': document.querySelector('#numero').value,
+        'bairro': document.querySelector('#bairro').value,
+        'complemento': document.querySelector('#complemento').value,
+        'data': document.querySelector('#data').value,
+    }
+    window.localStorage.setItem('clientData', JSON.stringify(clientData))
+}
+
+function fillFormStoredData(clientData) {
+    document.querySelector('#consultor').value = clientData.consultor
+    document.querySelector('#cidade').value = clientData.cidade
+    document.querySelector('#cliente').value = clientData.cliente
+    document.querySelector('#logradouro').value = clientData.logradouro
+    document.querySelector('#numero').value = clientData.numero
+    document.querySelector('#bairro').value = clientData.bairro
+    document.querySelector('#complemento').value = clientData.complemento
+    document.querySelector('#data').value = clientData.data
+}
 
