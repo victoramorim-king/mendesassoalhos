@@ -47,6 +47,8 @@ function addItem() {
     document.getElementById("listItems").appendChild(node);
     itemNumber.value = listItems.childElementCount;
 
+    // store form data
+    storeNewItemFormData()
 }
 
 function addObservation() {
@@ -142,3 +144,19 @@ function fillFormStoredData(clientData) {
     document.querySelector('#data').value = clientData.data
 }
 
+function storeNewItemFormData(){
+    const budgetData = {
+        'consultor': document.querySelector('#quantidade').value,
+        'cidade': document.querySelector('#unidade').value,
+        'cliente': document.querySelector('#descricao').value,
+        'logradouro': document.querySelector('#valorUnitario').value,
+    }
+    window.localStorage.setItem('budgetData', JSON.stringify(budgetData))
+}
+
+function fillItemFormStoredData(formData) {
+    document.querySelector('#quantidade').value = formData.quantidade
+    document.querySelector('#unidade').value = formData.unidade
+    document.querySelector('#descricao').value = formData.descricao
+    document.querySelector('#valorUnitario').value = formData.valorUnitario
+}
