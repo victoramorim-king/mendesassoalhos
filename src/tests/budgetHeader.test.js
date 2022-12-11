@@ -1,5 +1,12 @@
 const puppeteer = require('puppeteer');
 
+const root = 'http://localhost:3000'
+const app = {
+  'home': root,
+  'header': root + '/budgetHeader',
+  'body': root + '/budgetBody',
+}
+
 const headerInputsData = [
   {'id':'consultor', 'value': 'Lucas Mendes'},
   {'id':'cidade', 'value':'SP'},
@@ -11,16 +18,6 @@ const headerInputsData = [
   {'id':'data', 'value': '10/12/2022'}
 ]
 
-const headerInputsDataIncomplete = [
-  {'id':'consultor', 'value': 'Lucas Mendes'},
-  {'id':'cidade', 'value':'SP'},
-  {'id':'cliente', 'value':'Roberta Matarazzo'},
-  {'id':'logradouro', 'value': 'R. Marcos Mélega'},
-  {'id':'numero', 'value': '1234'},
-  {'id':'bairro', 'value': 'Alto de Pinheiros'},
-  {'id':'complemento', 'value': 'Apartamento 23B'},
-]
-
 const newItemInputsData = [
   {'id':'quantidade', 'value': '19'},
   {'id':'unidade', 'value':'m²'},
@@ -28,10 +25,10 @@ const newItemInputsData = [
   {'id':'valorUnitario', 'value': '123,33'},
 ]
 
-test('Check if generate pdf button is avaliable with satisfied prerequisies', async () => {
+test('check header page inputs keep data after reload our redirect', async () => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
-  await page.goto('http://localhost:3000');
+  await page.goto(app.header);
   
 
   for (const [i, input] of headerInputsData.entries()) {
@@ -39,41 +36,44 @@ test('Check if generate pdf button is avaliable with satisfied prerequisies', as
     await page.type(`input#${input['id']}`, input['value']);
   }
 
-  for (const [i, input] of newItemInputsData.entries()) {
-    await page.click(`input#${input['id']}`);
-    await page.type(`input#${input['id']}`, input['value']);
-  }
+  await page.click('button#next')
 
-  await page.click('#btnAddItem');
-  await page.click('body')
+  await page.click('a#previous')
 
-  let generatePDFButton = await page.$eval("button#submitBtn", (btn) => btn.disabled);
+  let consultantValue = await page.$eval("input#consultor", (input) => input.value);
+
+  expect(consultantValue).toBe('Lucas Mendes');
+
+  await page.$eval("input#consultor", (input) => input.value = "")
+
+  await page.type(`input#consultor`, 'Larissa Mendes');
+
+  await page.click('a#home')
+
+  await page.click('button#gerarOrcamento')
+
+  consultantValue = await page.$eval("input#consultor", (input) => input.value);
   await browser.close();
-  expect(generatePDFButton).toBe(false);
+
+  expect(consultantValue).toBe('Larissa Mendes');
+
+
 
 });
 
-test('Check if generate pdf button IS NOT avaliable without satisfied prerequisies', async () => {
-  const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
-  await page.goto('http://localhost:3000');
-  
-  // Input Data is not in the array to force the fail
+// test('Check if Body is generatign items', async () => {
+//   const browser = await puppeteer.launch({ headless: false });
+//   const page = await browser.newPage();
+//   await page.goto(app.body);
 
-  for (const [i, input] of headerInputsDataIncomplete.entries()) {
-    await page.click(`input#${input['id']}`);
-    await page.type(`input#${input['id']}`, input['value']);
-  }
+//   for (const [i, input] of newItemInputsData.entries()) {
+//     await page.click(`input#${input['id']}`);
+//     await page.type(`input#${input['id']}`, input['value']);
+//   }
 
-  for (const [i, input] of newItemInputsData.entries()) {
-    await page.click(`input#${input['id']}`);
-    await page.type(`input#${input['id']}`, input['value']);
-  }
+//   await page.click('#btnAddItem');
 
-  await page.click('#btnAddItem');
-
-  let generatePDFButton = await page.$eval("button#submitBtn", (btn) => btn.disabled);
-  console.log(generatePDFButton)
-  expect(generatePDFButton).toBe(true);
-
-});
+//   let generatePDFButton = await page.$eval("div#listItems", (div) => div.childElementCount);
+//   await browser.close();
+//   expect(generatePDFButton).toBe(1);
+// });

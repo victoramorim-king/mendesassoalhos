@@ -1,62 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mendes Assoalhos</title>
     <link rel="stylesheet" href="css/budgetHeader.css">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            fillFormStoredData(JSON.parse(window.localStorage.getItem('clientData')))
-        }, false);
-
-        document.addEventListener('change', function () {
-            storeData()
-        }, false);
+      document.addEventListener('DOMContentLoaded', function () {
+        fillFormStoredData(JSON.parse(window.localStorage.getItem('clientData')))
+      }, false);
     </script>
-</head>
+  </head>
 
-<body onclick="blockPDFGeneration(document.querySelector('#listItems').childElementCount)">
+  <body>
     <main class="main">
-        <form action='/budgetBody' id='form1' method='get'>
-            <div class="form">
-                <h2 class="title">Mendes Assoalhos</h2>
-                <label for="Consultor">Consultor </label>
-                <input type='text' id="consultor" name="Consultor" required="true"
-                    ></input>
-                <label for="Cidade">Cidade</label>
-                <input type='text' id="cidade" name="Cidade" required="true"></input>
-                <label for="Cliente">Cliente</label>
-                <input type='text' id="cliente" name="Cliente" required="true"></input>
-                <label for="Logradouro">Logradouro</label>
-                <input type='text' id="logradouro" name="Logradouro" required="true"></input>
-                <label for="Número">Número</label>
-                <input type='text' id="numero" name="Numero" required="true"></input>
-                <label for="Bairro">Bairro</label>
-                <input type='text' id="bairro" name="Bairro" required="true"></input>
-                <label for="Complemento">Complemento</label>
-                <input type='text' id="complemento" name="Complemento" required="true"></input>
-                <label for="Data">Data</label>
-                <input type='date' id="data" name="Data" required="true"></input>
-            </div>
-
-
-        </form>
+      <form action='/budgetBody' class="form" id='form1' method='get' onchange="storeData()">
+        <h2 class="title">Mendes Assoalhos</h2>
+        <label for="Consultor">Consultor </label>
+        <input type='text' id="consultor" name="Consultor" required="true"></input>
+        <label for="Cidade">Cidade</label>
+        <input type='text' id="cidade" name="Cidade" required="true"></input>
+        <label for="Cliente">Cliente</label>
+        <input type='text' id="cliente" name="Cliente" required="true"></input>
+        <label for="Logradouro">Logradouro</label>
+        <input type='text' id="logradouro" name="Logradouro" required="true"></input>
+        <label for="Número">Número</label>
+        <input type='text' id="numero" name="Numero" required="true"></input>
+        <label for="Bairro">Bairro</label>
+        <input type='text' id="bairro" name="Bairro" required="true"></input>
+        <label for="Complemento">Complemento</label>
+        <input type='text' id="complemento" name="Complemento" required="true"></input>
+        <label for="Data">Data</label>
+        <input type='date' id="data" name="Data" required="true"></input>
+      </form>
 
 
     </main>
     <div class="navbar">
-        <a href="/" class="active">Home</a>
-        <a href="#news">Ecolher Cliente</a>
-        <button form="form1" type="submit">Próximo</button>
+      <a id="home" href="/" class="active">Home</a>
+      <a href="#news">Ecolher Cliente</a>
+      <button id="next" form="form1" type="submit">Próximo</button>
 
     </div>
 
     <script src="/js/budgetHeader.js">
 
     </script>
-</body>
+  </body>
 
 </html>
