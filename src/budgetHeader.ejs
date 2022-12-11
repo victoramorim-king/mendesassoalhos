@@ -17,65 +17,41 @@
 
 <body onclick="blockPDFGeneration(document.querySelector('#listItems').childElementCount)">
     <main class="main">
-        <form action='/pdf' id='form1' method='get'>
+        <form action='/budgetBody' id='form1' method='get'>
             <div class="form">
-                <h2 class="title">Cabeçalho</h2>
-                <label for="Consultor">Consultor</label>
-                <input type='text' id="consultor" name="Consultor" required="true"></input>
+                <h2 class="title">Mendes Assoalhos</h2>
+                <label for="Consultor">Consultor </label>
+                <input type='text' id="consultor" name="Consultor" required="true" value="<%= headerData['Consultor'] %>"></input>
                 <label for="Cidade">Cidade</label>
-                <input type='text' id="cidade" name="Cidade" required="true"></input>
+                <input type='text' id="cidade" name="Cidade" required="true" value="<%= headerData['Cidade'] %>"></input>
                 <label for="Cliente">Cliente</label>
-                <input type='text' id="cliente" name="Cliente" required="true"></input>
+                <input type='text' id="cliente" name="Cliente" required="true" value="<%= headerData['Cliente'] %>"></input>
                 <label for="Logradouro">Logradouro</label>
-                <input type='text' id="logradouro" name="Logradouro" required="true"></input>
+                <input type='text' id="logradouro" name="Logradouro" required="true" value="<%= headerData['Logradouro'] %>"></input>
                 <label for="Número">Número</label>
-                <input type='text' id="numero" name="Número" required="true"></input>
+                <input type='text' id="Numero" name="Numero" required="true" value="<%= headerData['Numero'] %>"></input>
                 <label for="Bairro">Bairro</label>
-                <input type='text' id="bairro" name="Bairro" required="true"></input>
+                <input type='text' id="bairro" name="Bairro" required="true" value="<%= headerData['Bairro'] %>"></input>
                 <label for="Complemento">Complemento</label>
-                <input type='text' id="complemento" name="Complemento" required="true"></input>
+                <input type='text' id="complemento" name="Complemento" required="true" value="<%= headerData['Complemento'] %>"></input>
                 <label for="Data">Data</label>
-                <input type='date' id="data" name="Data" required="true"></input>
+                <input type='date' id="data" name="Data" required="true" value="<%= headerData['Data'] %>"></input>
             </div>
 
-            <div id="itemForm" class="form">
-                <h2 class="title">Itens</h2>
-                <label>Numero do Item</label>
-                <input type='Number' id="itemNumber" name="itemNumber" readonly="true" ></input>
-                <label>Quantidade</label>
-                <input type='Number' id="quantidade" onchange="calculateTotal()"></input>
-                <label>Unidade</label>
-                <input type='text' id="unidade"></input>
-                <label>Descrição</label>
-                <input type='text' id="descricao"></input>
-                <label>Valor Unitário</label>
-                <input type='text' id="valorUnitario" onchange="calculateTotal()"></input>
-                <label>Total</label>
-                <input type='text' id="Total"  required="true"  readonly="true"></input>
-                <button type="button" id="btnAddItem" class="btnAdd" onclick="addItem(), setItemNumbers()">Adicionar Item</button>
-            </div>
-            <div id="listItems" class="listItems" name="listItems">
-            </div>
-
-            <div class="form">
-                <h2 class="title">Observações</h2>
-                <input id="novaObservacao" type="text">
-                <button id='addObs' class="btnAdd" type="button" onclick="addObservation()">Adicionar Observação</button>
-            </div>
-
-            <div id='observationList'class='form'>
-            </div>
 
         </form>
 
+
     </main>
         <div class="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#news">News</a>
-            <button type='submit' id="submitBtn" disabled="true"  form='form1'>Gerar PDF</button>
+            <a href="/" class="active">Home</a>
+            <a href="#news">Ecolher Cliente</a>
+            <button form="form1" type="submit">Próximo</button>
 
         </div>
-    <script src="/js/budgetHeader.js"></script>
+    <script src="/js/budgetHeader.js">
+        
+    </script>
 </body>
 
 </html>
