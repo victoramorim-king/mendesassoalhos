@@ -16,7 +16,6 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 function clearTotais(totais){
     for (var i = 0; i < totais.length; i++) {
         totais[i] = totais[i].replace('R$', '')
-        console.log(totais[i])
         totais[i] = parseFloat(totais[i].replace('.', ''))
     }
     return totais
@@ -58,7 +57,6 @@ app.get("/pdf", (request, response) => {
 
     budget.Data = budget.Data.split('-').reverse().join('/');
     budget.Subtotal = subtotal(budget['Total'])
-    console.log(budget)
     const filePath = path.join(__dirname, "print.ejs")
     ejs.renderFile(filePath, { budget }, async (err, html) => {
         if (err) {
@@ -136,7 +134,6 @@ app.get("/budgetFooter", (request, response) => {
     const currentBudgetDataFile = path.join(__dirname, "../public/config/current_budget.json")
     const currentBudgetData = JSON.parse(fs.readFileSync(currentBudgetDataFile, 'utf-8'))
     const data = request.query
-    console.log(data)
     currentBudgetData.body = data
     fs.writeFileSync(currentBudgetDataFile, JSON.stringify(currentBudgetData, null, 2), 'utf-8')
 
