@@ -87,16 +87,6 @@ app.get("/pdf", (request, response) => {
     })
 });
 
-app.get("/budgetHeader", (request, response) => {
-    const filePath = path.join(__dirname, "budgetHeader.ejs")
-    ejs.renderFile(filePath, (err, html) => {
-        if (err) {
-            return response.send('Erro na leitura do arquivo')
-        }
-
-        return response.send(html)
-    })
-})
 
 app.get("/", (request, response) => {
     const filePath = path.join(__dirname, "home.ejs")
@@ -109,6 +99,56 @@ app.get("/", (request, response) => {
     })
 })
 
+app.get("/budgetHeader", (request, response) => {
+    const currentBudgetData = path.join(__dirname, "../public/config/current_budget.json")
+    const config = fs.readFileSync(currentBudgetData, 'utf-8')
+    const data = JSON.parse(config)
+    const headerData = data["header"]
+    const filePath = path.join(__dirname, "budgetHeader.ejs")
+    ejs.renderFile(filePath, { headerData }, async (err, html) => {
+        if (err) {
+            return response.send('Erro na leitura do arquivo')
+        }
+
+        return response.send(html)
+    })
+})
+
+app.get("/budgetBody", (request, response) => {
+    const currentBudgetDataFile = path.join(__dirname, "../public/config/current_budget.json")
+    const currentBudgetData = JSON.parse(fs.readFileSync(currentBudgetDataFile, 'utf-8'))
+    const data = request.query
+    currentBudgetData.header = data
+    fs.writeFileSync(currentBudgetDataFile, JSON.stringify(currentBudgetData, null, 2), 'utf-8')
+
+    const filePath = path.join(__dirname, "budgetBody.ejs")
+    ejs.renderFile(filePath, (err, html) => {
+        if (err) {
+            return response.send('Erro na leitura do arquivo')
+        }
+
+        return response.send(html)
+    })
+})
+
+app.get("/budgetFooter", (request, response) => {
+
+    const currentBudgetDataFile = path.join(__dirname, "../public/config/current_budget.json")
+    const currentBudgetData = JSON.parse(fs.readFileSync(currentBudgetDataFile, 'utf-8'))
+    const data = request.query
+    console.log(data)
+    currentBudgetData.body = data
+    fs.writeFileSync(currentBudgetDataFile, JSON.stringify(currentBudgetData, null, 2), 'utf-8')
+
+    const filePath = path.join(__dirname, "budgetFooter.ejs")
+    ejs.renderFile(filePath, (err, html) => {
+        if (err) {
+            return response.send('Erro na leitura do arquivo')
+        }
+
+        return response.send(html)
+    })
+})
 
 app.listen(3000);
 
