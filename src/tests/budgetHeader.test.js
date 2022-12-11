@@ -61,19 +61,19 @@ test('check header page inputs keep data after reload our redirect', async () =>
 
 });
 
-// test('Check if Body is generatign items', async () => {
-//   const browser = await puppeteer.launch({ headless: false });
-//   const page = await browser.newPage();
-//   await page.goto(app.body);
+test('Check if Body is generatign items', async () => {
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  await page.goto(app.body);
 
-//   for (const [i, input] of newItemInputsData.entries()) {
-//     await page.click(`input#${input['id']}`);
-//     await page.type(`input#${input['id']}`, input['value']);
-//   }
+  for (const [i, input] of newItemInputsData.entries()) {
+    await page.click(`input#${input['id']}`);
+    await page.type(`input#${input['id']}`, input['value']);
+  }
 
-//   await page.click('#btnAddItem');
+  await page.click('#btnAddItem');
 
-//   let generatePDFButton = await page.$eval("div#listItems", (div) => div.childElementCount);
-//   await browser.close();
-//   expect(generatePDFButton).toBe(1);
-// });
+  let generatePDFButton = await page.$eval("div#listItems", (div) => div.childElementCount);
+  await browser.close();
+  expect(generatePDFButton).toBe(1);
+});
