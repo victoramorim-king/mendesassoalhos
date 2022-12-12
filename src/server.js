@@ -16,7 +16,9 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 function clearTotais(totais){
     for (var i = 0; i < totais.length; i++) {
         totais[i] = totais[i].replace('R$', '')
-        totais[i] = parseFloat(totais[i].replace('.', ''))
+        totais[i] = totais[i].replace('.', '')
+        totais[i] = totais[i].replace(',', '')
+        totais[i] = totais[i] / 100
     }
     return totais
 }
@@ -46,6 +48,7 @@ module.exports = subtotal;
 app.get("/pdf", (request, response) => {
 
     const budget = request.query
+    
 
     //const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
     //const data = JSON.parse(config)

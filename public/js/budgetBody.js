@@ -7,7 +7,9 @@ const formatter = new Intl.NumberFormat('pt-BR', {
 function clearTotais(totais){
     for (var i = 0; i < totais.length; i++) {
         totais[i] = totais[i].replace('R$', '')
-        totais[i] = parseFloat(totais[i].replace('.', ''))
+        totais[i] = totais[i].replace('.', '')
+        totais[i] = totais[i].replace(',', '')
+        totais[i] = totais[i] / 100
     }
     return totais
 }
