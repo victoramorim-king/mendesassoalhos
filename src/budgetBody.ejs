@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/budgetHeader.css">
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        fillItemFormStoredData(window.localStorage.getItem('budgetData'))
+        fillItemFormStoredData(JSON.parse(window.localStorage.getItem('budgetData')))
       }, false);
 
     </script>
   </head>
 
   <body>
-    <div id="itemForm" class="form">
+    <div id="itemForm" class="form" onchange="storeNewItemFormData(), handleinputs()">
       <h2 class="title">Itens</h2>
       <label>Numero do Item</label>
       <input type='Number' id="itemNumber" name="itemNumber" readonly="true"></input>

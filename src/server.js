@@ -116,11 +116,11 @@ app.get("/budgetHeader", (request, response) => {
 })
 
 app.get("/budgetBody", (request, response) => {
-    const currentBudgetDataFile = path.join(__dirname, "../public/config/current_budget.json")
-    const currentBudgetData = JSON.parse(fs.readFileSync(currentBudgetDataFile, 'utf-8'))
-    const data = request.query
-    currentBudgetData.header = data
-    fs.writeFileSync(currentBudgetDataFile, JSON.stringify(currentBudgetData, null, 2), 'utf-8')
+    // const currentBudgetDataFile = path.join(__dirname, "../public/config/current_budget.json")
+    // const currentBudgetData = JSON.parse(fs.readFileSync(currentBudgetDataFile, 'utf-8'))
+    // const data = request.query
+    // currentBudgetData.header = data
+    // fs.writeFileSync(currentBudgetDataFile, JSON.stringify(currentBudgetData, null, 2), 'utf-8')
 
     const filePath = path.join(__dirname, "budgetBody.ejs")
     ejs.renderFile(filePath, (err, html) => {
