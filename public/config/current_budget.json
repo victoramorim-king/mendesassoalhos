@@ -12,25 +12,37 @@
   "body": {
     "id": [
       "1",
-      "2"
+      "2",
+      "3",
+      "4"
     ],
     "Quantidade": [
+      "10",
+      "10",
       "10",
       "10"
     ],
     "Unidade": [
       "Piso de madeira",
-      "Piso de madeira"
-    ],
-    "Descricao": [
+      "Piso de madeira",
       "m²",
       "m²"
     ],
+    "Descricao": [
+      "m²",
+      "m²",
+      "Piso de madeira",
+      "Piso de madeira"
+    ],
     "ValorUnitario": [
+      "R$ 245,00",
+      "R$ 245,00",
       "R$ 245,00",
       "R$ 245,00"
     ],
     "Total": [
+      "R$ 2.450,00",
+      "R$ 2.450,00",
       "R$ 2.450,00",
       "R$ 2.450,00"
     ]
