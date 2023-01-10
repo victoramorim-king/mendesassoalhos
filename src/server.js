@@ -51,7 +51,7 @@ app.get("/pdf", (request, response) => {
     //const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
     //const data = JSON.parse(config)
     //budget['Pedido'] = data.orcamento_numero;
-    budget['Pedido'] = 2036
+    budget['Pedido'] = 2040
     //data.orcamento_numero++
     //fs.writeFileSync('../public/config/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
 
