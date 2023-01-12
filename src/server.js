@@ -48,12 +48,11 @@ app.get("/pdf", (request, response) => {
 
     const budget = request.query
 
-    //const config = fs.readFileSync('../public/config/app_config.json', 'utf-8')
-    //const data = JSON.parse(config)
-    //budget['Pedido'] = data.orcamento_numero;
-    budget['Pedido'] = 2040
-    //data.orcamento_numero++
-    //fs.writeFileSync('../public/config/app_config.json', JSON.stringify(data, null, 2), 'utf-8')
+    const config = fs.readFileSync(path.join(__dirname, '../public/config/app_config.json'), 'utf-8')
+    const data = JSON.parse(config)
+    budget['Pedido'] = data.orcamento_numero;
+    data.orcamento_numero++
+    fs.writeFileSync(path.join(__dirname, '../public/config/app_config.json'), JSON.stringify(data, null, 2), 'utf-8')
 
 
     budget.Data = budget.Data.split('-').reverse().join('/');
